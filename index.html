@@ -3,46 +3,54 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Materiaal Prijs Calculator</title>
+    <title>Materiaal Calculator Overzicht</title>
     <style>
-        body { font-family: sans-serif; margin: 40px; background-color: #f4f4f9; }
-        .container { max-width: 400px; background: white; padding: 20px; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
-        h2 { color: #333; }
-        label { display: block; margin-top: 15px; margin-bottom: 5px; }
-        select, input { width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box; }
-        .resultaat { margin-top: 20px; padding: 15px; background: #e7f3ff; border-radius: 4px; font-weight: bold; }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; margin: 40px; background-color: #f0f2f5; color: #333; }
+        .container { max-width: 800px; margin: auto; background: white; padding: 30px; border-radius: 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.08); }
+        h2 { text-align: center; color: #2c3e50; margin-bottom: 30px; }
+        
+        table { width: 100%; border-collapse: collapse; margin-bottom: 20px; }
+        th { background-color: #f8f9fa; border-bottom: 2px solid #dee2e6; padding: 12px; text-align: left; }
+        td { padding: 12px; border-bottom: 1px solid #eee; }
+        
+        input[type="number"] { width: 80px; padding: 8px; border: 1px solid #ccc; border-radius: 4px; }
+        .prijs-cel { font-family: monospace; font-size: 1.1em; }
+        .subtotaal { font-weight: bold; color: #2980b9; }
+        
+        .totaal-sectie { 
+            text-align: right; 
+            padding: 20px; 
+            background: #2c3e50; 
+            color: white; 
+            border-radius: 8px; 
+            font-size: 1.5em; 
+        }
+        tr:hover { background-color: #fdfdfd; }
     </style>
 </head>
 <body>
 
 <div class="container">
-    <h2>Prijs Calculator</h2>
+    <h2>Materiaallijst & Calculatie</h2>
     
-    <label for="materiaal">Kies materiaal:</label>
-    <select id="materiaal" onchange="berekenPrijs()">
-        <option value="15.50">Hout (€15,50 per m²)</option>
-        <option value="45.00">Staal (€45,00 per kg)</option>
-        <option value="12.00">Beton (€12,00 per liter)</option>
-        <option value="8.25">Aluminium (€8,25 per kg)</option>
-    </select>
+    <table>
+        <thead>
+            <tr>
+                <th>Materiaal</th>
+                <th>Prijs (p/st)</th>
+                <th>Aantal</th>
+                <th>Subtotaal</th>
+            </tr>
+        </thead>
+        <tbody id="materiaal-body">
+            </tbody>
+    </table>
 
-    <label for="aantal">Hoeveelheid:</label>
-    <input type="number" id="aantal" value="1" min="1" oninput="berekenPrijs()">
-
-    <div class="resultaat" id="totaal">
-        Totaal: €15,50
+    <div class="totaal-sectie">
+        Eindtotaal: <span id="eindtotaal">€ 0,00</span>
     </div>
 </div>
 
 <script>
-    function berekenPrijs() {
-        const prijsPerEenheid = document.getElementById('materiaal').value;
-        const aantal = document.getElementById('aantal').value;
-        const totaal = prijsPerEenheid * aantal;
-        
-        document.getElementById('totaal').innerText = "Totaal: €" + totaal.toFixed(2).replace('.', ',');
-    }
-</script>
-
-</body>
-</html>
+    // Hier kun je eenvoudig materialen toevoegen of prijzen aanpassen
+    const
