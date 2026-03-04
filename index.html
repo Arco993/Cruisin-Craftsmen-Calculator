@@ -53,4 +53,50 @@
 
 <script>
     // Hier kun je eenvoudig materialen toevoegen of prijzen aanpassen
-    const
+    const materialen = [
+        { naam: "Houten Balk (vuren)", prijs: 12.50 },
+        { naam: "Betonmortel (25kg)", prijs: 8.95 },
+        { naam: "Gipsplaat (st)", prijs: 14.20 },
+        { naam: "Isolatieglas (m2)", prijs: 85.00 },
+        { naam: "Baksteen (per 100)", prijs: 42.00 },
+        { naam: "PVC Buis (2m)", prijs: 6.75 },
+        { naam: "Laminaat (m2)", prijs: 19.95 },
+        { naam: "Verf (2.5L)", prijs: 45.50 },
+        { naam: "Schroeven (doos)", prijs: 11.25 },
+        { naam: "Dakpannen (st)", prijs: 2.40 },
+        { naam: "Zand (zak)", prijs: 4.50 },
+        { naam: "Aluminium Profiel", prijs: 22.10 }
+    ];
+
+    const tabelBody = document.getElementById('materiaal-body');
+
+    function bouwTabel() {
+        materialen.forEach((item, index) => {
+            const row = document.createElement('tr');
+            row.innerHTML = `
+                <td>${item.naam}</td>
+                <td class="prijs-cel">€ ${item.prijs.toFixed(2).replace('.', ',')}</td>
+                <td><input type="number" id="aantal-${index}" value="0" min="0" oninput="berekenAlles()"></td>
+                <td class="prijs-cel subtotaal" id="sub-${index}">€ 0,00</td>
+            `;
+            tabelBody.appendChild(row);
+        });
+    }
+
+    function berekenAlles() {
+        let totaal = 0;
+        materialen.forEach((item, index) => {
+            const aantal = document.getElementById(`aantal-${index}`).value || 0;
+            const sub = item.prijs * aantal;
+            totaal += sub;
+            document.getElementById(`sub-${index}`).innerText = "€ " + sub.toFixed(2).replace('.', ',');
+        });
+        document.getElementById('eindtotaal').innerText = "€ " + totaal.toFixed(2).replace('.', ',');
+    }
+
+    // Start de tabel op bij laden
+    bouwTabel();
+</script>
+
+</body>
+</html>
